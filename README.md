@@ -11,7 +11,7 @@ Der Promotionsrechner ist ein Tool zur einfachen und schnellen Berechnung der Be
 
 ## Anwendung
 
-1. [ims-promotionsrechner.netlify.app](ims-promotionsrechner.netlify.app) öffnen
+1. [ims-promotionsrechner.netlify.app](https://ims-promotionsrechner.netlify.app) öffnen
 2. Noten eingeben
 3. der Notenschnitt wird berechnet
 
