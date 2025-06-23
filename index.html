@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA-KRANKER NOTENRECHNER | Promotion Check</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff2d75;
+            --dark: #0c1021;
+            --light: #f8f9ff;
+            --success: #00e676;
+            --danger: #ff5252;
+            --warning: #ffd740;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1f38);
+            color: var(--light);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                    radial-gradient(circle at 10% 20%, rgba(106, 17, 203, 0.15) 0%, transparent 20%),
+                    radial-gradient(circle at 90% 80%, rgba(37, 117, 252, 0.15) 0%, transparent 20%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(106, 17, 203, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(20, 25, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 i {
+            color: var(--secondary);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #aab8ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input {
+            padding: 14px 15px;
+            border-radius: 12px;
+            border: 2px solid rgba(106, 17, 203, 0.3);
+            background: rgba(15, 20, 40, 0.6);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.3);
+            background: rgba(15, 20, 40, 0.8);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.6);
+            background: linear-gradient(135deg, #7a1cec, #3885ff);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(1px);
+        }
+
+        .result-card {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .result-item {
+            background: rgba(15, 20, 40, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #aab8ff;
+        }
+
+        .result-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--light), #aab8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .promo-result {
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: all 0.5s;
+            background: rgba(15, 20, 40, 0.6);
+            border: 2px solid transparent;
+        }
+
+        .promo-success {
+            background: linear-gradient(135deg, rgba(0, 230, 118, 0.15), rgba(0, 230, 118, 0.05));
+            border-color: rgba(0, 230, 118, 0.3);
+            color: var(--success);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
+        }
+
+        .promo-fail {
+            background: linear-gradient(135deg, rgba(255, 82, 82, 0.15), rgba(255, 82, 82, 0.05));
+            border-color: rgba(255, 82, 82, 0.3);
+            color: var(--danger);
+            box-shadow: 0 0 20px rgba(255, 82, 82, 0.2);
+        }
+
+        .promo-details {
+            margin-top: 15px;
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(106, 17, 203, 0.5); }
+            to { text-shadow: 0 0 20px rgba(106, 17, 203, 0.8), 0 0 30px rgba(37, 117, 252, 0.6); }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(106, 17, 203, 0.3);
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            background: var(--dark);
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(150%);
+            transition: transform 0.5s ease-in-out;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .grade-hint {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .reasons-list {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .reason-item {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .reason-item i {
+            margin-right: 10px;
+            min-width: 20px;
+        }
+
+        .unguentend {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .rounded-display {
+            background: rgba(255,255,255,0.1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            margin-left: 5px;
+            font-weight: 600;
+        }
+
+        .subject-name {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+
+<div class="container">
+    <header>
+        <h1>NOTENRECHNER</h1>
+        <p class="subtitle">Trage deine Noten ein und finde sofort heraus, ob du die Promotion schaffst! Berechne deinen Gesamtschnitt und BM-Schnitt.</p>
+    </header>
+
+    <div class="main-content">
+        <div class="card">
+            <h2><i class="fas fa-edit"></i> Noten eingeben</h2>
+
+            <div class="input-grid">
+                <!-- BM Fächer -->
+                <div class="input-group">
+                    <label><i class="fas fa-calculator"></i> Mathematik</label>
+                    <input type="number" id="mathe" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-book"></i> Deutsch</label>
+                    <input type="number" id="deutsch" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-flag"></i> Französisch</label>
+                    <input type="number" id="franz" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-language"></i> Englisch</label>
+                    <input type="number" id="englisch" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-landmark"></i> Geschichte</label>
+                    <input type="number" id="geschichte" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-chart-line"></i> Wirtschaft</label>
+                    <input type="number" id="wirtschaft" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-money-bill-wave"></i> Finanzen</label>
+                    <input type="number" id="finanz" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">BM-Fach (wird auf 0.5 gerundet)</div>
+                </div>
+
+                <!-- Weitere Fächer -->
+                <div class="input-group">
+                    <label><i class="fas fa-running"></i> Sport</label>
+                    <input type="number" id="sport" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">(wird auf 0.5 gerundet)</div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-laptop-code"></i> Informatik</label>
+                    <input type="number" id="informatik" min="1" max="6" step="0.05" placeholder="1.0-6.0">
+                    <div class="grade-hint">(wird auf 0.5 gerundet)</div>
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="berechne()">
+                <i class="fas fa-bolt"></i> JETZT BERECHNEN
+            </button>
+        </div>
+
+        <div class="card result-card">
+            <h2><i class="fas fa-chart-bar"></i> Ergebnisse</h2>
+
+            <div class="result-item">
+                <div class="result-title">
+                    <i class="fas fa-star"></i> Gesamtschnitt
+                </div>
+                <div class="result-value" id="gesamtSchnitt">-</div>
+                <div class="promo-details">Durchschnitt aller Fächer (mit gerundeten Noten)</div>
+            </div>
+
+            <div class="result-item">
+                <div class="result-title">
+                    <i class="fas fa-trophy"></i> BM-Schnitt
+                </div>
+                <div class="result-value" id="bmSchnitt">-</div>
+                <div class="promo-details">Durchschnitt der BM-Fächer (mit gerundeten Noten)</div>
+            </div>
+
+            <div class="result-item">
+                <div class="result-title">
+                    <i class="fas fa-graduation-cap"></i> Promotion Status
+                </div>
+                <div id="promotion" class="promo-result">-</div>
+                <div class="promo-details">
+                    <p>Promotion geschafft wenn:</p>
+                    <p>• Maximal 2 ungenügende Fächer (unter 4.0)</p>
+                    <p>• Summe der Defizite max. 2.0 Notenpunkte</p>
+                    <p>• Gesamtschnitt mind. 4.0</p>
+                    <p>• BM-Schnitt mind. 4.0</p>
+                </div>
+                <div id="reasonsContainer" class="reasons-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="notification" id="notification">
+    <i class="fas fa-exclamation-circle"></i> Bitte fülle alle Felder mit gültigen Noten aus!
+</div>
+
+<script>
+    // Rundet auf die nächste halbe Note (0.25–0.74 auf 0.5, ab 0.75 auf 1.0)
+    function rundeHalb(zahl) {
+        const ganz = Math.floor(zahl);
+        const rest = zahl - ganz;
+        if (rest < 0.25) return ganz;
+        if (rest < 0.75) return ganz + 0.5;
+        return ganz + 1;
+    }
+
+    // Rundet auf eine Nachkommastelle (0.1)
+    function rundeZehntel(zahl) {
+        return Math.round(zahl * 10) / 10;
+    }
+
+    // Floating Partikel Animation
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+        for(let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 20 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            const duration = Math.random() * 20 + 10;
+            particle.style.animationDuration = `${duration}s`;
+            const delay = Math.random() * 5;
+            particle.style.animationDelay = `${delay}s`;
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    // Notification System
+    function showNotification() {
+        const notification = document.getElementById('notification');
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Funktion zum Anzeigen der Gründe für das Nichtbestehen
+    function showReasons(reasons) {
+        const container = document.getElementById('reasonsContainer');
+        container.innerHTML = '';
+
+        if (reasons.length === 0) return;
+
+        const title = document.createElement('div');
+        title.innerHTML = '<strong>Gründe für Nichtbestehen:</strong>';
+        container.appendChild(title);
+
+        reasons.forEach(reason => {
+            const item = document.createElement('div');
+            item.className = 'reason-item';
+            item.innerHTML = `
+            <i class="fas fa-times-circle" style="color: var(--danger);"></i>
+            ${reason}
+        `;
+            container.appendChild(item);
+        });
+    }
+
+    // Hauptfunktion für die Berechnung
+    function berechne() {
+        // Noten holen und runden
+        const grades = {
+            mathe: rundeHalb(parseFloat(document.getElementById('mathe').value)),
+            deutsch: rundeHalb(parseFloat(document.getElementById('deutsch').value)),
+            franz: rundeHalb(parseFloat(document.getElementById('franz').value)),
+            englisch: rundeHalb(parseFloat(document.getElementById('englisch').value)),
+            geschichte: rundeHalb(parseFloat(document.getElementById('geschichte').value)),
+            wirtschaft: rundeHalb(parseFloat(document.getElementById('wirtschaft').value)),
+            finanz: rundeHalb(parseFloat(document.getElementById('finanz').value)),
+            sport: rundeHalb(parseFloat(document.getElementById('sport').value)),
+            informatik: rundeHalb(parseFloat(document.getElementById('informatik').value))
+        };
+
+        // Validierung
+        let isValid = true;
+        for(const key in grades) {
+            const value = grades[key];
+            if(isNaN(value)) {
+                document.getElementById(key).style.borderColor = "var(--danger)";
+                isValid = false;
+            } else if(value < 1 || value > 6) {
+                document.getElementById(key).style.borderColor = "var(--danger)";
+                isValid = false;
+            } else {
+                document.getElementById(key).style.borderColor = "rgba(106, 17, 203, 0.3)";
+            }
+        }
+        if(!isValid) {
+            showNotification();
+            return;
+        }
+
+        // Schnittberechnung (mit gerundeten Noten)
+        const allSubjects = Object.values(grades);
+        const overallSum = allSubjects.reduce((sum, grade) => sum + grade, 0);
+        const overallAverage = overallSum / allSubjects.length;
+
+        const bmSubjects = ['mathe', 'deutsch', 'franz', 'englisch', 'geschichte', 'wirtschaft', 'finanz'];
+        const bmGrades = bmSubjects.map(subject => grades[subject]);
+        const bmSum = bmGrades.reduce((sum, grade) => sum + grade, 0);
+        const bmAverage = bmSum / bmSubjects.length;
+
+        // Promotion-Logik
+        const failingGrades = allSubjects.filter(grade => grade < 4);
+
+        // Defizit berechnen (mit gerundeten Noten)
+        const deficit = failingGrades.reduce((sum, grade) => sum + (4 - grade), 0);
+
+        let promotionMessage = "";
+        let promotionClass = "";
+        let reasons = [];
+
+        // Überprüfe die Promotionskriterien
+        if (failingGrades.length > 2) {
+            reasons.push(`Zu viele ungenügende Fächer: ${failingGrades.length} (max. 2 erlaubt)`);
+        }
+        if (deficit > 2.0) {
+            reasons.push(`Defizit zu hoch: ${deficit.toFixed(2)} (max. 2.0 erlaubt)`);
+        }
+        if (overallAverage < 4) {
+            reasons.push(`Gesamtschnitt zu tief: ${rundeZehntel(overallAverage).toFixed(1)} (mind. 4.0)`);
+        }
+        if (bmAverage < 4) {
+            reasons.push(`BM-Schnitt zu tief: ${rundeZehntel(bmAverage).toFixed(1)} (mind. 4.0)`);
+        }
+
+        // Wenn es keine Gründe gibt, wurde die Promotion bestanden
+        if (reasons.length === 0) {
+            promotionMessage = "PROMOTION GESCHAFFT! 🎉";
+            promotionClass = "promo-success";
+            showReasons([]);
+        } else {
+            promotionMessage = "PROMOTION NICHT GESCHAFFT! ❌";
+            promotionClass = "promo-fail";
+            showReasons(reasons);
+        }
+
+        // Ergebnisse anzeigen (auf 0.1 runden)
+        document.getElementById('gesamtSchnitt').textContent = rundeZehntel(overallAverage).toFixed(1);
+        document.getElementById('bmSchnitt').textContent = rundeZehntel(bmAverage).toFixed(1);
+
+        const promoElement = document.getElementById('promotion');
+        promoElement.innerHTML = promotionMessage;
+        promoElement.className = "promo-result " + promotionClass;
+    }
+
+    // Initialisierung bei Seitenaufruf
+    window.onload = function() {
+        createParticles();
+        // Live-Validierung für Inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                if(!isNaN(value)) {
+                    if(value < 1 || value > 6) {
+                        this.style.borderColor = "var(--danger)";
+                    } else {
+                        this.style.borderColor = "rgba(106, 17, 203, 0.3)";
+                    }
+                }
+            });
+        });
+    };
+</script>
+</body>
+</html>
